@@ -1,7 +1,6 @@
 #include <stdio.h>
 /**
- * Main - prints lowercases
- *
+ * Main - prints lowercase
  * Return: Always 0 (success)
  *
  */
