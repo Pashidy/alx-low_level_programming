@@ -1,6 +1,8 @@
 #include <stdio.h>
+
 /**
- * Main - prints lowercase
+ * main - Prints lowercase
+ *
  * Return: Always 0 (success)
  *
  */
