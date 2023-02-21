@@ -8,17 +8,19 @@
  */
 int main(void)
 {
-	int p;
+	int p = 0, q = 9;
 
-	for (p = 48; p < 58; p++)
-		putchar(p);
+	while (p <= q)
+	{
+		putchar(p + '0');
 
-		if (p != 57)
+		if (p != q)
 		{
 			putchar(',');
-
 			putchar(' ');
 		}
+		p++;
+	}
 	putchar('\n');
 
 	return (0);
