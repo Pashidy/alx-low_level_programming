@@ -8,6 +8,18 @@
 
 int main(void)
 {
+
+int _putchar(char c)
+{
+    return putchar((int)c);
+}
+
+int main()
+{
+    _putchar('_');
+    return 0;
+}
+
 	_putchar('_');
 	_putchar('p');
 	_putchar('u');
