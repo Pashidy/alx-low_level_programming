@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <string.h>
+#include "main.h"
 
 /**
  * _strspn - Get the length of the initial segment of a string that consists
@@ -12,10 +13,32 @@
  */
 size_t _strspn(const char *s, const char *accept)
 {
-	size_t len = 0;
+	const char *p;
+	size_t count = 0;
+	int matches;
 
-	while (*s != '\0' && strchr(accept, *s++) != NULL)
-		len++;
+	while (*s)
+	{
+		p = accept;
+		matches = 0;
 
-	return (len);
+	while (*p)
+	{
+		if (*p == *s)
+		{
+			matches = 1;
+			count++;
+		break;
+		}
+
+		p++;
+	}
+
+	if (matches == 0)
+		break;
+
+	s++;
+	}
+
+	return (count);
 }
