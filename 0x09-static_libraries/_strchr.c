@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include "main.h"
 
 /**
  * _strchr - Locate the first occurrence of a character in a string.
