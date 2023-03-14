@@ -18,7 +18,7 @@ int _strcmp(char *s1, char *s2);
 char *_memset(char *s, char b, unsigned int n);
 char *_memcpy(char *dest, char *src, unsigned int n);
 char *_strchr(const char *s, int c);
-size_t _strspn(const char *s, const char *accept);
+unsigned int _strspn(char *s, char *accept);
 char *_strpbrk(const char *s1, const char *s2);
 char *_strstr(char *haystack, char *needle);
 

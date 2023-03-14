@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include <string.h>
+#include <stdlib.h>
 #include "main.h"
 
 /**
@@ -11,33 +11,23 @@
  * Return: The length of the initial segment of s that consists entirely of
  *         characters in accept.
  */
-size_t _strspn(const char *s, const char *accept)
+unsigned int _strspn(char *s, char *accept)
 {
-	const char *p;
-	size_t count = 0;
-	int matches;
+	unsigned int i, j, count = 0;
 
-	while (*s)
+	for (i = 0; s[i] != '\0'; i++)
 	{
-		p = accept;
-		matches = 0;
-
-	while (*p)
+	for (j = 0; accept[j] != '\0'; j++)
 	{
-		if (*p == *s)
+		if (s[i] == accept[j])
 		{
-			matches = 1;
 			count++;
-		break;
+			break;
 		}
-
-		p++;
 	}
 
-	if (matches == 0)
-		break;
-
-	s++;
+	if (accept[j] == '\0')
+		return (count);
 	}
 
 	return (count);
