@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdlib.h>
+#include "main.h"
 
 /**
  * _strstr - locates a substring within a string
