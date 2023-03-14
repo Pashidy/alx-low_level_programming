@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main.h"
 
 /**
  * _strpbrk - Locate the first occurrence in a string
