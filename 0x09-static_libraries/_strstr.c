@@ -12,29 +12,22 @@
  * Return: pointer to the beginning of the located substring,
  *         or NULL if the substring is not found
  */
+
 char *_strstr(char *haystack, char *needle)
 {
-	char *p1, *p2;
+	int i, j;
 
-	if (!haystack || !needle)
-	return (NULL);
-
-	while (*haystack)
+	for (i = 0; haystack[i] != '\0'; i++)
 	{
-		p1 = haystack;
-		p2 = needle;
-
-	while (*p1 && *p2 && (*p1 == *p2))
+	for (j = 0; needle[j] != '\0'; j++)
 	{
-		p1++;
-		p2++;
+	if (haystack[i + j] != needle[j])
+	break;
 	}
 
-	if (!*p2)
-	return (haystack);
-
-		haystack++;
+	if (needle[j] == '\0')
+		return (haystack + i);
 	}
 
 	return (NULL);
-	}
+}
