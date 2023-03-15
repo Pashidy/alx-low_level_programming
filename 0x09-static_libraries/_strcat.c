@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include "main.h"
 
 /**
  * _strcat - Concatenate two strings.
@@ -7,21 +8,22 @@
  *
  * Return: A pointer to the destination string.
  */
-char *_strcat(char *dest, const char *src)
+
+char *_strcat(char *dest, char *src)
 {
-	char *ptr = dest;
+	char *temp = dest;
 
-	while (*ptr)
-	ptr++;
+	while (*dest != '\0')
+		dest++;
 
-	while (*src)
+	while (*src != '\0')
 	{
-		*ptr = *src;
-		ptr++;
+		*dest = *src;
+		dest++;
 		src++;
 	}
 
-	*ptr = '\0';
+		*dest = '\0';
 
-	return (dest);
+	return (temp);
 }
