@@ -1,4 +1,6 @@
 #include <stddef.h>
+#include "main.h"
+#include <stdio.h>
 
 /**
  * _strncpy - Copy a string up to n bytes.
@@ -8,15 +10,16 @@
  *
  * Return: A pointer to the destination string.
  */
-char *_strncpy(char *dest, const char *src, size_t n)
+
+char *_strncpy(char *dest, char *src, int n)
 {
-	size_t i;
+	int i;
 
 	for (i = 0; i < n && src[i] != '\0'; i++)
-	dest[i] = src[i];
+		dest[i] = src[i];
 
 	for (; i < n; i++)
-	dest[i] = '\0';
+		dest[i] = '\0';
 
 	return (dest);
 }
