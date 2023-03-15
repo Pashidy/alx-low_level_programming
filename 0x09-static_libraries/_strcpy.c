@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
+#include "main.h"
 
 /**
  * _strcpy - copies the string pointed to by src,
@@ -13,11 +13,18 @@
  * Return: pointer to dest.
  */
 
-char *_strcpy(char *dest, const char *src)
+char *_strcpy(char *dest, char *src)
 {
-	char *p = dest;
+	char *temp = dest;
 
-	while (*dest++ = *src++)
+	while (*src != '\0')
+	{
+		*dest = *src;
+		dest++;
+		src++;
+	}
 
-	return (p);
+	*dest = '\0';
+
+	return (temp);
 }
