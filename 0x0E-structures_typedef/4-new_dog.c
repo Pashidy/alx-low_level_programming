@@ -1,82 +1,42 @@
 #include "dog.h"
+#include <stddef.h>
 #include <stdlib.h>
-
-int _strlen(char *str);
-char *_strcpy(char *dest, char *src);
-dog_t *new_dog(char *name, float age, char *owner);
-
-/**
- * _strlen - Finds the length of a string
- * @str: The string to be measured
- *
- * Return: The length of the string
- */
-int _strlen(char *str)
-{
-	int len = 0;
-
-	while (*str++)
-		len++;
-	return (len);
-}
-
-/**
- * _strcpy - copies a string pointed to by src,
- * including the terminating null byte.
- * @src: The source string
- * @dest: The buffer storing the string copy
- *
- * Return: The pointer to dest.
- */
-char *_strcpy(char *dest, char *src)
-{
-	int index = 0;
-
-	for (index = 0; src[index]; index++)
-		dest[index] = src[index];
-
-	dest[index] = '\0';
-
-	return (dest);
-}
+#include <string.h>
 
 /**
  * new_dog - creates a new dog
- * @name: The name of the dog.
- * @age: The age of the dog
- * @owner: The owner of the dog
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
  *
- * Return: The new struct dog
+ * Return: pointer to new dog
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *doggo;
+	dog_t *new_dog;
 
-	if (name == NULL || age < 0 || owner == NULL)
+	new_dog = malloc(sizeof(dog_t));
+	if (new_dog == NULL)
 		return (NULL);
 
-	doggo = malloc(sizeof(dog_t));
-	if (doggo == NULL)
-		return (NULL);
-
-	doggo->name = malloc(sizeof(char) * (_strlen(name) + 1));
-	if (doggo->name == NULL)
+	new_dog->name = malloc(strlen(name) + 1);
+	if (new_dog->name == NULL)
 	{
-		free(doggo);
+		free(new_dog);
 		return (NULL);
 	}
+	strcpy(new_dog->name, name);
 
-	doggo->name = malloc(sizeof(char) * (_strlen(owner) + 1));
-	if (doggo->owner == NULL)
+	new_dog->owner = malloc(strlen(owner) + 1);
+	if (new_dog->owner == NULL)
 	{
-		free(doggo->name);
-		free(doggo);
+		free(new_dog->name);
+		free(new_dog);
 		return (NULL);
 	}
+	strcpy(new_dog->owner, owner);
 
-	doggo->name = _strcpy(doggo->name, name);
-	doggo->age = age;
-	doggo->owner = _strcpy(doggo->owner, owner);
+	new_dog->age = age;
 
-	return (doggo);
+	return (new_dog);
 }
