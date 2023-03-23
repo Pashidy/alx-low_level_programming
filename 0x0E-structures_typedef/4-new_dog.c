@@ -1,17 +1,17 @@
 #include "dog.h"
 #include <stdlib.h>
 
-int _strle n(char *str);
+int _strlen(char *str);
 char *_strcpy(char *dest, char *src);
 dog_t *new_dog(char *name, float age, char *owner);
 
 /**
- * _strlen _ Finds the length of a string
+ * _strlen - Finds the length of a string
  * @str: The string to be measured
  *
  * Return: The length of the string
  */
-int strlen(char *str)
+int _strlen(char *str)
 {
 	int len = 0;
 
@@ -22,7 +22,7 @@ int strlen(char *str)
 
 /**
  * _strcpy - copies a string pointed to by src,
-		including the terminating null byte.
+ * including the terminating null byte.
  * @src: The source string
  * @dest: The buffer storing the string copy
  *
@@ -41,11 +41,11 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- * new_dog _ creates a new dog
+ * new_dog - creates a new dog
  * @name: The name of the dog.
  * @age: The age of the dog
  * @owner: The owner of the dog
- * 
+ *
  * Return: The new struct dog
  */
 dog_t *new_dog(char *name, float age, char *owner)
