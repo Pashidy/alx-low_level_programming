@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "lists.h"
 
-#include <stdio.h>
-
 /**
  * before_main - prints the required text before the main function is executed
  *
