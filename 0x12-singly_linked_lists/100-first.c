@@ -1,11 +1,14 @@
 #include <stdio.h>
+#include "lists.h"
+
+void first(void) __attribute__ ((constructor));
+
 
 /**
- * before_main - prints the required text before the main function is executed
- *
- * Return: void
+ * first - prints a sentence before the main
+ * function is executed
  */
-void before_main(void)
+void first(void)
 {
 	printf("You're beat! and yet, you must allow,\n");
 	printf("I bore my house upon my back!\n");
