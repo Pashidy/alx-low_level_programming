@@ -4,18 +4,18 @@
 /**
  * get_endianness - Checks the endianness of the system.
  *
- * Return: 0 if big endian, 1 if little endian.
+ * This function determines whether the system is big endian or little endian.
+ *
+ * Return: 0 if the system is big endian, 1 if the system is little endian.
  */
 int get_endianness(void)
 {
-	union
-	{
-		unsigned int i;
-		char c[sizeof(unsigned int)];
-	}
-	test;
+	unsigned int test = 1;
+	char *ch = (char *)&test;
 
-	test.i = 1;
-
-	return ((test.c[0] == 1) ? 1 : 0);
+/*
+ * If the least significant byte is at the lowest address,
+ * the system is little endian. Otherwise, it is big endian.
+ */
+	return ((int)*ch);
 }
