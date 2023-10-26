@@ -54,12 +54,13 @@ int extract_words(char *str, char **words)
 	int i, j, word_start = 0, word_index = 0;
 
 	for (i = 0; str[i] != '\0'; i++)
-	{	if (!is_space(str[i]) && (i == 0 || is_space(str[i - 1])))
-			word_start = i;
+		if (!is_space(str[i]) && (i == 0 || is_space(str[i - 1])))
+		{	word_start = i;
 
 		if (!is_space(str[i]) && (is_space(str[i + 1]) || str[i + 1] == '\0'))
 		{
 			int word_length = i - word_start + 1;
+
 			words[word_index] = (char *)malloc((word_length + 1) * sizeof(char));
 
 			if (words[word_index] == NULL)
@@ -74,7 +75,7 @@ int extract_words(char *str, char **words)
 			words[word_index][j] = '\0';
 			word_index++;
 		}
-	}
+		}
 
 	words[word_index] = NULL;
 
