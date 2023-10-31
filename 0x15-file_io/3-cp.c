@@ -2,89 +2,76 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
-#define BUFFER_SIZE 1024
 
 /**
- * error_exit - Display an error message and exit with a specific code
- * @code: The error code
- * @message: The error message to display
- *
- * This function prints an error message to the standard error output (file
- * descriptor 2) and exits the program with the specified error code.
+ * error_file - checks if files can be opened.
+ * @file_from: file_from.
+ * @file_to: file_to.
+ * @argv: arguments vector.
+ * Return: no return.
  */
-
-void error_exit(int code, const char *message)
+void error_file(int file_from, int file_to, char *argv[])
 {
-	dprintf(2, "Error: %s\n", message);
-	exit(code);
-}
-
-/**
- * copy_file - Copy content from one file to another
- * @file_from: Source file name
- * @file_to: Destination file name
- *
- * This function copies the content of the source file to the destination file.
- * It reads data in chunks of BUFFER_SIZE (1024 bytes)
- * to minimize system calls.
- * If an error occurs during file operations,
- * it exits with the appropriate code.
- */
-
-void copy_file(const char *file_from, const char *file_to)
-{
-	int fd_from, fd_to;
-	char buffer[BUFFER_SIZE];
-	ssize_t bytes_read, bytes_written;
-
-	fd_from = open(file_from, O_RDONLY);
-	if (fd_from == -1)
-		error_exit(98, "Can't read from file");
-
-	fd_to = open(file_to, O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1;
-	if (fd_to == -1)
-		error_exit(99, "Can't write to file");
-
-	while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
+	if (file_from == -1)
 	{
-		bytes_written = write(fd_to, buffer, bytes_read);
-		if (bytes_written == -1)
-			error_exit(99, "Can't write to file");
-		if (bytes_written != bytes_read)
-			error_exit(99, "Incomplete write to file");
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
 	}
-
-	if (bytes_read == -1)
-		error_exit(98, "Can't read from file");
-
-	if (close(fd_from) == -1)
-		error_exit(100, "Can't close fd");
-	if (close(fd_to) == -1)
-		error_exit(100, "Can't close fd");
+	if (file_to == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		exit(99);
+	}
 }
 
 /**
- * main - Entry point of the program
- * @argc: Number of arguments
- * @argv: Array of arguments
- *
- * This function checks if the correct number of arguments is provided.
- * If not, it exits with code 97. It then calls copy_file with the provided
- * file names.
- *
- * Return: Always 0
+ * main - check the code for Holberton School students.
+ * @argc: number of arguments.
+ * @argv: arguments vector.
+ * Return: Always 0.
  */
-
 int main(int argc, char *argv[])
 {
+	int file_from, file_to, err_close;
+	ssize_t nchars, nwr;
+	char buf[1024];
+
 	if (argc != 3)
-		error_exit(97, "Usage: cp file_from file_to");
+	{
+		dprintf(STDERR_FILENO, "%s\n", "Usage: cp file_from file_to");
+		exit(97);
+	}
 
-	copy_file(argv[1], argv[2]);
+	file_from = open(argv[1], O_RDONLY);
+	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	error_file(file_from, file_to, argv);
 
+	nchars = 1024;
+	while (nchars == 1024)
+	{
+		nchars = read(file_from, buf, 1024);
+		if (nchars == -1)
+		{
+			error_file(-1, 0, argv);
+		}
+		nwr = write(file_to, buf, nchars);
+		if (nwr == -1)
+		{
+			error_file(0, -1, argv);
+		}
+	}
+	err_close = close(file_from);
+	if (err_close == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_from);
+		exit(100);
+	}
+
+	err_close = close(file_to);
+	if (err_close == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_to);
+		exit(100);
+	}
 	return (0);
 }
